@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check the person </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #ffe6e6; /* Soft pink */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Floating Hearts Background Effect */
+        .heart {
+            position: absolute;
+            color: #ff4d4d;
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            z-index: 10;
+            width: 85%; /* Optimized for mobile */
+            max-width: 400px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 { color: #ff4d4d; font-size: 22px; margin-bottom: 20px; }
+
+        .question-box { display: none; }
+        .active { display: block; animation: fadeIn 0.5s; }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ffcccc;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-family: inherit;
+            resize: none;
+            overflow: hidden;
+            display: block;
+            font-size: 16px; /* Prevents auto-zoom on iPhone */
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        button {
+            background: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:active { transform: scale(0.95); }
+
+        .back-btn { background: #ff9999; }
+
+        #success-message {
+            display: none;
+            color: #ff4d4d;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <form id="timeCapsuleForm" action="https://formspree.io/f/xykkzpnd" method="POST">
+        <div class="container" id="mainContainer">
+            <div id="formContent">
+                <h1>Check the person is right for you or not?</h1>
+
+                <div class="question-box active" id="q0">
+                    <p>First, what is your name?</p>
+                    <input type="text" id="visitorName" name="visitorName" placeholder="Enter your name..." required>
+                    <div class="btn-container">
+                        <button type="button" onclick="nextQuestion(0)">Start</button>
+                    </div>
+                </div>
+                
+                <div class="question-box" id="q1">
+                    <p>Question 1: How do you know him?</p>
+                    <textarea name="answer1" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(1)">Back</button>
+                        <button type="button" onclick="nextQuestion(1)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q2">
+                    <p>Question 2: What is the relationship between you and him?</p>
+                    <textarea name="answer2" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(2)">Back</button>
+                        <button type="button" onclick="nextQuestion(2)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q3">
+                    <p>Question 3: Which of his things do you like the most?</p>
+                    <textarea name="answer3" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(3)">Back</button>
+                        <button type="button" onclick="nextQuestion(3)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q4">
+                    <p>Question 4: What you think about him ?</p>
+                    <textarea name="answer4" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(4)">Back</button>
+                        <button type="button" onclick="nextQuestion(4)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q5">
+                    <p>Question 5: What are your future plans for him? </p>
+                    <textarea name="answer5" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(5)">Back</button>
+                        <button type="button" onclick="nextQuestion(5)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q6">
+                    <p>Question 6: Is he your crush? or Do you like him ?</p>
+                    <textarea name="answer6" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(6)">Back</button>
+                        <button type="button" onclick="nextQuestion(6)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q7">
+                    <p>Question 7: What is the most sweetest momnet with him ?
+                    </p>
+                    <textarea name="answer7" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(7)">Back</button>
+                        <button type="button" onclick="nextQuestion(7)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q8">
+                    <p>Question 8: Is he propose you ?</p>
+                    <textarea name="answer8" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(8)">Back</button>
+                        <button type="button" onclick="nextQuestion(8)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q9">
+                    <p>Question 9: If he has proposed to you, what is the answer ? or If he proposed to you, what would your answer be?</p>
+                    <textarea name="answer9" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(9)">Back</button>
+                        <button type="button" onclick="nextQuestion(9)">Next</button>
+                    </div>
+                </div>
+
+                <div class="question-box" id="q10">
+                    <p>Question 10: Do you wnat to marry him ?</p>
+                    <textarea name="answer10" placeholder="Type your answer..." required oninput="autoGrow(this)"></textarea>
+                    <div class="btn-container">
+                        <button type="button" class="back-btn" onclick="prevQuestion(10)">Back</button>
+                        <button type="submit" id="submitBtn">Submit to Jobayer</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="success-message">
+                <h1 id="matchText"></h1>
+                <p>❤️ I appriceat your  chose  ❤️
+                    All answer will be hidden 
+                </p>
+            </div>
+        </div>
+    </form>
+
+    <script>
+        function autoGrow(element) {
+            element.style.height = 'auto';
+            element.style.height = element.scrollHeight + 'px';
+        }
+
+        function nextQuestion(currentNum) {
+            const currentInput = document.querySelector(`#q${currentNum} input, #q${currentNum} textarea`);
+            if(currentInput.value.trim() === "") {
+                alert("Please fill this out first!");
+                return;
+            }
+            document.getElementById('q' + currentNum).classList.remove('active');
+            document.getElementById('q' + (currentNum + 1)).classList.add('active');
+        }
+
+        function prevQuestion(currentNum) {
+            document.getElementById('q' + currentNum).classList.remove('active');
+            document.getElementById('q' + (currentNum - 1)).classList.add('active');
+        }
+
+        const form = document.getElementById('timeCapsuleForm');
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const name = document.getElementById('visitorName').value;
+            submitBtn.innerText = "Sending...";
+            
+            const formData = new FormData(form);
+            
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            });
+
+            if (response.ok) {
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('success-message').style.display = 'block';
+                document.getElementById('matchText').innerText = name + " and Jobayer are made for each other!";
+            } else {
+                alert("Oops! There was a problem submitting your form.");
+                submitBtn.innerText = "Submit";
+            }
+        };
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 6000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
